@@ -98,7 +98,29 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && Ataque == false)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && ContaPulos <= 0)
+            {
+                rb.AddForce(new Vector2(0, 1f) * ForcaPulo);
+                ContaPulos++;
+                Anim.SetBool("Pulo", true);
+                switch (pulo)
+                {
+                    case 3:
+                        audios.PlayOneShot(jump3);
+                        pulo = 1;
+                        break;
+                    case 2:
+                        audios.PlayOneShot(jump2);
+                        pulo = 3;
+                        break;
+                    case 1:
+                        audios.PlayOneShot(jump1);
+                        pulo = 2;
+                        break;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse1) && Ataque == false)
             {
                 Anim.Play("Ataque1");
                 Ataque = true;
@@ -122,7 +144,7 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.LeftShift) && Ataque == true)
+            else if (Input.GetKeyDown(KeyCode.Mouse2) && Ataque == true)
             {
                 Anim.Play("Ataque2");
                 Ataque = false;
