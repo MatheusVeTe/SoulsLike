@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public float ForcaPulo;
     public int ContaPulos;
+    public int ContaRolls;
     private Animator Anim;
     public bool Ataque = false;
     public AudioSource audios;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public int ataqueN = 1;
     public int pulo = 1;
+    public int roll = 1;
 
     public AudioClip attack1;
     public AudioClip attack2;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
         if (life == true) 
         {
             float PosX = Input.GetAxis("Horizontal") * Time.deltaTime * Velocidade;
+            float PosR = Input.GetAxis("Horizontal") * Time.deltaTime * Velocidade;
             transform.Translate(new Vector3(PosX, 0, 0));
 
 
@@ -53,6 +56,15 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Anim.SetBool("Corre", false);
+            }
+
+            if (PosR != 0 && Anim.GetBool("Roll") == false)
+            {
+                Anim.SetBool("Roll", true);
+            }
+            else
+            {
+                Anim.SetBool("Roll", false);
             }
 
             // Anim.SetBool("Corre", PosX!=0);
@@ -100,14 +112,16 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && ContaPulos <= 0)
             {
-                rb.AddForce(new Vector2(0, 1f) * ForcaPulo);
-                ContaPulos++;
-                Anim.SetBool("Pulo", true);
-                switch (pulo)
+                if(GuardaEscala > 0)
+                {
+                    rb.AddForce(new Vector2(1f, 0) * ForcaPulo);
+                ContaRolls++;
+                Anim.SetBool("Roll", true);
+                /*switch (roll)
                 {
                     case 3:
                         audios.PlayOneShot(jump3);
-                        pulo = 1;
+                        roll = 1;
                         break;
                     case 2:
                         audios.PlayOneShot(jump2);
@@ -117,6 +131,26 @@ public class PlayerController : MonoBehaviour
                         audios.PlayOneShot(jump1);
                         pulo = 2;
                         break;
+                }*/
+                }if(GuardaEscala < 0) else{
+                    rb.AddForce(new Vector2(-1f, 0) * ForcaPulo);
+                ContaRolls++;
+                Anim.SetBool("Roll", true);
+                /*switch (roll)
+                {
+                    case 3:
+                        audios.PlayOneShot(jump3);
+                        roll = 1;
+                        break;
+                    case 2:
+                        audios.PlayOneShot(jump2);
+                        pulo = 3;
+                        break;
+                    case 1:
+                        audios.PlayOneShot(jump1);
+                        pulo = 2;
+                        break;
+                }*/
                 }
             }
 
@@ -144,7 +178,7 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.Mouse2) && Ataque == true)
+            else if (Input.GetKeyDown(KeyCode.Mouse1) && Ataque == true)
             {
                 Anim.Play("Ataque2");
                 Ataque = false;

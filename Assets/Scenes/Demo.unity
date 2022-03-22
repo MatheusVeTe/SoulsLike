@@ -880,7 +880,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 6821486078574752750}
   m_Follow: {fileID: 6821486078574752750}
   m_Lens:
     FieldOfView: 60
@@ -905,7 +905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104395285567934439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15000013, y: -0.91999996, z: -10}
+  m_LocalPosition: {x: -0.15000024, y: -0.91999996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 104395286822870245}
@@ -1317,7 +1317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2309414265170495955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15000013, y: -0.91999996, z: -10}
+  m_LocalPosition: {x: -0.15000024, y: -0.91999996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2309414265152605817}
@@ -1834,11 +1834,13 @@ MonoBehaviour:
   Velocidade: 8
   ForcaPulo: 120
   ContaPulos: 0
+  ContaRolls: 0
   Ataque: 0
   audios: {fileID: 6821486078574752530}
   life: 1
   ataqueN: 1
   pulo: 1
+  roll: 1
   attack1: {fileID: 8300000, guid: 5c113fc9e4cece2488e2391463c68449, type: 3}
   attack2: {fileID: 8300000, guid: 662a3ec54415a7a428a44d42b12e978a, type: 3}
   attack3: {fileID: 8300000, guid: 208b07867b7eb9945bb5d19a975287b8, type: 3}
