@@ -110,50 +110,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && ContaPulos <= 0)
-            {
-                if(GuardaEscala > 0)
-                {
-                    rb.AddForce(new Vector2(1f, 0) * ForcaPulo);
-                ContaRolls++;
-                Anim.SetBool("Roll", true);
-                /*switch (roll)
-                {
-                    case 3:
-                        audios.PlayOneShot(jump3);
-                        roll = 1;
-                        break;
-                    case 2:
-                        audios.PlayOneShot(jump2);
-                        pulo = 3;
-                        break;
-                    case 1:
-                        audios.PlayOneShot(jump1);
-                        pulo = 2;
-                        break;
-                }*/
-                }if(GuardaEscala < 0) else{
-                    rb.AddForce(new Vector2(-1f, 0) * ForcaPulo);
-                ContaRolls++;
-                Anim.SetBool("Roll", true);
-                /*switch (roll)
-                {
-                    case 3:
-                        audios.PlayOneShot(jump3);
-                        roll = 1;
-                        break;
-                    case 2:
-                        audios.PlayOneShot(jump2);
-                        pulo = 3;
-                        break;
-                    case 1:
-                        audios.PlayOneShot(jump1);
-                        pulo = 2;
-                        break;
-                }*/
-                }
-            }
-
             if (Input.GetKeyDown(KeyCode.Mouse1) && Ataque == false)
             {
                 Anim.Play("Ataque1");
