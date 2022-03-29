@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public float ForcaPulo;
     public int ContaPulos;
-    public int ContaRolls;
     private Animator Anim;
     public bool Ataque = false;
     public AudioSource audios;
@@ -19,7 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public int ataqueN = 1;
     public int pulo = 1;
-    public int roll = 1;
+
+    public bool rollCond = true;
 
     public AudioClip attack1;
     public AudioClip attack2;
@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour
         if (life == true) 
         {
             float PosX = Input.GetAxis("Horizontal") * Time.deltaTime * Velocidade;
-            float PosR = Input.GetAxis("Horizontal") * Time.deltaTime * Velocidade;
             transform.Translate(new Vector3(PosX, 0, 0));
+
 
 
             if (PosX != 0 && Anim.GetBool("Pulo") == false)
@@ -56,15 +56,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Anim.SetBool("Corre", false);
-            }
-
-            if (PosR != 0 && Anim.GetBool("Roll") == false)
-            {
-                Anim.SetBool("Roll", true);
-            }
-            else
-            {
-                Anim.SetBool("Roll", false);
             }
 
             // Anim.SetBool("Corre", PosX!=0);
@@ -88,6 +79,20 @@ public class PlayerController : MonoBehaviour
             }
             */
 
+            if (Input.GetKeyDown(KeyCode.LeftShift) && rollCond == true)
+            {
+                {
+                    if (ViradoDireita == true)
+                    {
+                        StartCoroutine(coroutineRollD());
+                    }
+                    else if (ViradoDireita == false)
+                    {
+                        StartCoroutine(coroutineRollE());
+                    }
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Space) && ContaPulos <= 0)
             {
                 rb.AddForce(new Vector2(0, 1f) * ForcaPulo);
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Ataque == false)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Ataque == false)
             {
                 Anim.Play("Ataque1");
                 Ataque = true;
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.Mouse1) && Ataque == true)
+            else if (Input.GetKeyDown(KeyCode.Mouse0) && Ataque == true)
             {
                 Anim.Play("Ataque2");
                 Ataque = false;
@@ -158,6 +163,24 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator coroutineRollD()
+    {
+        rollCond = false;
+        rb.AddForce(new Vector2(150f, 0));
+        Anim.Play("Roll");
+        yield return new WaitForSeconds(1.0f);
+        rollCond = true;
+    }
+
+    IEnumerator coroutineRollE()
+    {
+        rollCond = false;
+        rb.AddForce(new Vector2(-150f, 0));
+        Anim.Play("Roll");
+        yield return new WaitForSeconds(1.0f);
+        rollCond = true;
     }
 
     void Gira()
