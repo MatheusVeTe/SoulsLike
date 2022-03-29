@@ -162,6 +162,13 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
             }
+
+                if(Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                Shoot();
+                }
+
+
         }
     }
 
@@ -181,6 +188,15 @@ public class PlayerController : MonoBehaviour
         Anim.Play("Roll");
         yield return new WaitForSeconds(1.0f);
         rollCond = true;
+    }
+
+    void Shoot()
+    {
+        //if(transform.localScale)
+        {
+            Instantiate(bulletPrefab, tiroPonto.position, tiroPonto.rotation);
+        }
+        
     }
 
     void Gira()

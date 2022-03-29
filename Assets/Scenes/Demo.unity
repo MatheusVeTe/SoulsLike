@@ -198,6 +198,88 @@ RectTransform:
   m_AnchoredPosition: {x: 39.2001, y: -13.3546}
   m_SizeDelta: {x: 22.7092, y: 22.7092}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &328612864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328612865}
+  - component: {fileID: 328612866}
+  m_Layer: 0
+  m_Name: Square
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &328612865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328612864}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0.0196, y: 0.0232, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_Children: []
+  m_Father: {fileID: 6821486078574752750}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!212 &328612866
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328612864}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 7
+  m_Sprite: {fileID: 21300000, guid: 706947a37d459ce42999e87dff48aa6b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &743386345
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +490,6 @@ MonoBehaviour:
   - {fileID: 743386345}
   h: 3
   door: {fileID: 0}
-  key: {fileID: 0}
   player: {fileID: 0}
   Anim: {fileID: 0}
   audios: {fileID: 947484338}
@@ -861,6 +942,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2083746139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083746140}
+  m_Layer: 0
+  m_Name: PontoTiro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083746140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083746139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1438, y: 0.0227, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6821486078574752750}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &104395285567934424
 MonoBehaviour:
@@ -1750,6 +1861,7 @@ GameObject:
   - component: {fileID: 6821486078574752744}
   - component: {fileID: 6821486078574752530}
   - component: {fileID: 6821486078574752749}
+  - component: {fileID: 6821486078574752752}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1777,7 +1889,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &6821486078574752749
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1816,6 +1928,8 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 6821486077432392448}
+  - {fileID: 2083746140}
+  - {fileID: 328612865}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1832,21 +1946,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocidade: 8
-  ForcaPulo: 120
+  ForcaPulo: 0
   ContaPulos: 0
-  ContaRolls: 0
   Ataque: 0
-  audios: {fileID: 6821486078574752530}
+  audios: {fileID: 0}
   life: 1
   ataqueN: 1
   pulo: 1
-  roll: 1
-  attack1: {fileID: 8300000, guid: 5c113fc9e4cece2488e2391463c68449, type: 3}
-  attack2: {fileID: 8300000, guid: 662a3ec54415a7a428a44d42b12e978a, type: 3}
-  attack3: {fileID: 8300000, guid: 208b07867b7eb9945bb5d19a975287b8, type: 3}
-  sword1: {fileID: 8300000, guid: 16689cc2871268e4a8c560bb82448324, type: 3}
-  sword2: {fileID: 8300000, guid: 081022b8216942a448a382aff9859c7a, type: 3}
-  sword3: {fileID: 8300000, guid: 30bd34c3d2ff79d4081e6c77f1da572b, type: 3}
-  jump1: {fileID: 8300000, guid: b0dbe05075bf52845aba713171a7fdfc, type: 3}
-  jump2: {fileID: 8300000, guid: 211a6a4c08dd7b84bacfa556caeffbb6, type: 3}
-  jump3: {fileID: 8300000, guid: cbe507841da766649bc5d5856a18bffd, type: 3}
+  rollCond: 1
+  attack1: {fileID: 0}
+  attack2: {fileID: 0}
+  attack3: {fileID: 0}
+  sword1: {fileID: 0}
+  sword2: {fileID: 0}
+  sword3: {fileID: 0}
+  jump1: {fileID: 0}
+  jump2: {fileID: 0}
+  jump3: {fileID: 0}
+--- !u!114 &6821486078574752752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821486078574752747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897f0a27aa9639c439770aff9617f07c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiroPonto: {fileID: 2083746140}
+  bulletPrefab: {fileID: 5583865907858906606, guid: 772a3c142e6d0564ca300da5a3cb8b4a, type: 3}
