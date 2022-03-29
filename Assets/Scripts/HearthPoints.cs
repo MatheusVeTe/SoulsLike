@@ -7,7 +7,7 @@ public class HearthPoints : MonoBehaviour
     public GameObject[] hearts;
     public int h = 3;
     public Door door;
-    public IronKey key;
+    //public IronKey key;
     public PlayerController player;
     public Animator Anim;
 
@@ -58,7 +58,7 @@ public class HearthPoints : MonoBehaviour
         if(door.chave == true) 
         {
             door.Resetar();
-            key.Resetar();
+            //key.Resetar();
         }
         player.Resetar();
         hearts[0].SetActive(true);
