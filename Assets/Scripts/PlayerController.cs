@@ -1,223 +1,137 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float Velocidade;
-    bool ViradoDireita = true;
-    private Rigidbody2D rb;
-    public float ForcaPulo;
-    public int ContaPulos;
-    private Animator Anim;
-    public bool Ataque = false;
-    public AudioSource audios;
+    public static PlayerController Instance; 
 
-    public bool life = true;
+    public float X;
+    public float Y;
+    public float Speed = 5;
+    public bool Rolled;
+    public bool SpecialUsed;
+    
+    public SpriteRenderer SR;
+    public Rigidbody2D RB;
+    public Animator Animator;
+    public AudioSource AudioSource;
+    public AudioClip Hit;
 
-    public int ataqueN = 1;
-    public int pulo = 1;
-
-    public bool rollCond = true;
-
-    public AudioClip attack1;
-    public AudioClip attack2;
-    public AudioClip attack3;
-    public AudioClip sword1;
-    public AudioClip sword2;
-    public AudioClip sword3;
-    public AudioClip jump1;
-    public AudioClip jump2;
-    public AudioClip jump3;
-
-
-    void Start()
+    private void Awake() 
     {
-        audios = GetComponent<AudioSource>();
-        rb = GetComponent<Rigidbody2D>();
-        Anim = GetComponent<Animator>();
+        if (Instance == null) {Instance = this;}
     }
 
-    // Update is called once per frame
+    private void FixedUpdate() 
+    {
+        //Movimento
+        X = Input.GetAxis("Horizontal");
+        Y = Input.GetAxis("Vertical");
+        transform.position += new Vector3(X, 0, 0) * Speed * Time.deltaTime;
+        Animator.SetFloat("IsWalking", Mathf.Abs(X));
+
+        if(X > 0){SR.flipX = false;}
+        if(X < 0){SR.flipX = true;}
+    }
+
     void Update()
     {
-        if (life == true) 
+        //Não Pausado
+        if (Time.timeScale == 1)
         {
-            float PosX = Input.GetAxis("Horizontal") * Time.deltaTime * Velocidade;
-            transform.Translate(new Vector3(PosX, 0, 0));
-
-
-
-            if (PosX != 0 && Anim.GetBool("Pulo") == false)
+            //Pulo
+            if (Input.GetButtonDown("Jump") && Mathf.Abs(RB.velocity.y) < 0.001f)
             {
-                Anim.SetBool("Corre", true);
+                RB.AddForce(new Vector2(0, Speed), ForceMode2D.Impulse);
+                Animator.SetBool("IsJumping", true);
+                AudioSource.PlayOneShot(AudioSource.clip);
             }
-            else
+            if (Mathf.Abs(RB.velocity.y) < 0.001f) {Animator.SetBool("IsJumping", false);}
+
+            //rolamento
+            if (Input.GetButtonDown("Roll") && Animator.GetBool("IsRolling") == false && Health.Instance.StaminaPoints > 0)
             {
-                Anim.SetBool("Corre", false);
+                if (X > 0) {RB.AddForce(new Vector2(Speed, 0), ForceMode2D.Impulse);}
+                if (X < 0) {RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);}
+                Animator.SetBool("IsRolling", true);
+                AudioSource.PlayOneShot(AudioSource.clip);
+                Health.Instance.UseStamina(1.5f);
+            } 
+            if (Animator.GetBool("IsRolling") == true) {Physics2D.IgnoreLayerCollision(7, 6, true);}
+            if (Animator.GetBool("IsRolling") == false) {Physics2D.IgnoreLayerCollision(7, 6, false);}
+            
+            if (Rolled == true)
+            {
+                Animator.SetBool("IsRolling", false); 
+                Animator.SetBool("IsTakingHit", false);
             }
 
-            // Anim.SetBool("Corre", PosX!=0);
-
-            if (PosX < 0 && ViradoDireita)
+            //atirar
+            if (Input.GetButtonDown("Fire1"))
             {
-                Gira();
-                ViradoDireita = false;
-            }
-            if (PosX > 0 && !ViradoDireita)
-            {
-                Gira();
-                ViradoDireita = true;
+                GameObject Bullet = ObjectPool.Instance.GetPooledObject();
+                if (Bullet != null) {Bullet.SetActive(true);}
             }
 
-            /*
-             if(PosX<0 && ViradoDireita)||(PosX>0 && !ViradoDireita)
+            //Usar ataque especial
+            if (Input.GetButtonDown("Fire2") && Health.Instance.SpecialPoints >= 1 
+                && Animator.GetBool("SpecialRight") == false && Animator.GetBool("SpecialLeft") == false)
             {
-                Gira();
-                ViradoDireita = !ViradoDireita;
-            }
-            */
-
-            if (Input.GetKeyDown(KeyCode.LeftShift) && rollCond == true)
-            {
+                if (SR.flipX == false)
                 {
-                    if (ViradoDireita == true)
-                    {
-                        StartCoroutine(coroutineRollD());
-                    }
-                    else if (ViradoDireita == false)
-                    {
-                        StartCoroutine(coroutineRollE());
-                    }
+                    Animator.SetBool("SpecialRight", true);
+                    Health.Instance.UseSpecial(1);
+                }
+                if (SR.flipX == true)
+                {
+                    Animator.SetBool("SpecialLeft", true);
+                    Health.Instance.UseSpecial(1);
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space) && ContaPulos <= 0)
+            if (SpecialUsed == true) 
             {
-                rb.AddForce(new Vector2(0, 1f) * ForcaPulo);
-                ContaPulos++;
-                Anim.SetBool("Pulo", true);
-                switch (pulo)
-                {
-                    case 3:
-                        audios.PlayOneShot(jump3);
-                        pulo = 1;
-                        break;
-                    case 2:
-                        audios.PlayOneShot(jump2);
-                        pulo = 3;
-                        break;
-                    case 1:
-                        audios.PlayOneShot(jump1);
-                        pulo = 2;
-                        break;
-                }
+                Animator.SetBool("SpecialRight", false); 
+                Animator.SetBool("SpecialLeft", false);
             }
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Ataque == false)
-            {
-                Anim.Play("Ataque1");
-                Ataque = true;
-                switch (ataqueN)
-                {
-                    case 3:
-                        audios.PlayOneShot(attack3);
-                        audios.PlayOneShot(sword3);
-                        ataqueN = 1;
-                        break;
-                    case 2:
-                        audios.PlayOneShot(attack2);
-                        audios.PlayOneShot(sword2);
-                        ataqueN = 3;
-                        break;
-                    case 1:
-                        audios.PlayOneShot(attack1);
-                        audios.PlayOneShot(sword1);
-                        ataqueN = 2;
-                        break;
-                }
-
-            }
-            else if (Input.GetKeyDown(KeyCode.Mouse0) && Ataque == true)
-            {
-                Anim.Play("Ataque2");
-                Ataque = false;
-                switch (ataqueN)
-                {
-                    case 3:
-                        audios.PlayOneShot(attack3);
-                        audios.PlayOneShot(sword3);
-                        ataqueN = 1;
-                        break;
-                    case 2:
-                        audios.PlayOneShot(attack2);
-                        audios.PlayOneShot(sword2);
-                        ataqueN = 3;
-                        break;
-                    case 1:
-                        audios.PlayOneShot(attack1);
-                        audios.PlayOneShot(sword1);
-                        ataqueN = 2;
-                        break;
-                }
-            }
-
-                if(Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                Shoot();
-                }
-
-
         }
     }
 
-    IEnumerator coroutineRollD()
+    private void OnCollisionEnter2D(Collision2D Col) 
     {
-        rollCond = false;
-        rb.AddForce(new Vector2(150f, 0));
-        Anim.Play("Roll");
-        yield return new WaitForSeconds(1.0f);
-        rollCond = true;
-    }
-
-    IEnumerator coroutineRollE()
-    {
-        rollCond = false;
-        rb.AddForce(new Vector2(-150f, 0));
-        Anim.Play("Roll");
-        yield return new WaitForSeconds(1.0f);
-        rollCond = true;
-    }
-
-    void Shoot()
-    {
-        //if(transform.localScale)
+        if (Col.gameObject.tag == "Enemy")
         {
-            Instantiate(bulletPrefab, tiroPonto.position, tiroPonto.rotation);
-        }
-        
-    }
+            Health.Instance.TakeDamage(1);
+            Animator.SetBool("IsTakingHit", true);
+            AudioSource.PlayOneShot(Hit);
 
-    void Gira()
-    {
-        Vector3 GuardaEscala;
-        GuardaEscala = transform.localScale;
-        GuardaEscala.x *= -1; // GuardaEscala.x = GuardaEscala.x * (-1);
-        transform.localScale = GuardaEscala;
-    }
+            if (Health.Instance.Dead == true) {Animator.SetBool("IsDead", true);}
 
-      private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("plataforma"))
-        {
-            ContaPulos = 0;
-            Anim.SetBool("Pulo", false);
+            if (transform.position.x >= Col.gameObject.transform.position.x)
+            {
+                RB.AddForce(new Vector2(Speed, 0), ForceMode2D.Impulse);
+            }
+            if (transform.position.x < Col.gameObject.transform.position.x)
+            {
+                RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);
+            }
         }
 
-    }
-    public void Resetar()
-    {
-        transform.position = new Vector3(-27, -2, 0);
+        if (Col.gameObject.tag == "Arrow")
+        {
+            Debug.Log("Hit");
+            Health.Instance.TakeDamage(1);
+            Animator.SetBool("IsTakingHit", true);
+            AudioSource.PlayOneShot(Hit);
+
+            if (Health.Instance.Dead == true) { Animator.SetBool("IsDead", true); }
+
+            if (transform.position.x >= Col.gameObject.transform.position.x)
+            {
+                RB.AddForce(new Vector2(Speed, 0), ForceMode2D.Impulse);
+            }
+            if (transform.position.x < Col.gameObject.transform.position.x)
+            {
+                RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);
+            }
+        }
     }
 }

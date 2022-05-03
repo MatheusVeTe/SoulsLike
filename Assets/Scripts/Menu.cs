@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,16 +5,16 @@ public class Menu : MonoBehaviour
 {
     public GameObject PauseMenu;
     public AudioMixer AudioMixer;
-
+    
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetButtonDown("Start")) 
         {
             Time.timeScale = 0;
             PauseMenu.SetActive(true);
         }
     }
-    
+
     public void Resume() 
     {
         Time.timeScale = 1;
