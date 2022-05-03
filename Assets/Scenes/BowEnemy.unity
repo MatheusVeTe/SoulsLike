@@ -418,6 +418,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3742697448369410140, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742697448369410140, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4930777646922133446, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -428,6 +436,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930777646922133446, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975517518376210825, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975517518376210825, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830444361815751723, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830444361815751723, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6697036760351055639, guid: bdac5e064f1db854785cf93a7ba7f55f, type: 3}
@@ -673,6 +697,7 @@ MonoBehaviour:
   Y: 0
   Speed: 5
   Rolled: 0
+  SpecialUsed: 0
   SR: {fileID: 1250137892}
   RB: {fileID: 1250137890}
   Animator: {fileID: 1250137889}
@@ -899,7 +924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250137886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.4, z: 0}
+  m_LocalPosition: {x: -8.14, y: -4.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -943,6 +968,7 @@ MonoBehaviour:
   RB: {fileID: 1423156917}
   startTimeBtwShots: 3
   delay: 0
+  move: 0
   arrow: {fileID: 953971394365372392, guid: 4f2220be29d880e40bfb0be02ebbd436, type: 3}
 --- !u!212 &1423156915
 SpriteRenderer:
@@ -1003,7 +1029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423156913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.31, y: -2.48, z: 0}
+  m_LocalPosition: {x: 8, y: -3.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
