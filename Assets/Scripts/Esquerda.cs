@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Esquerda : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Animation anim;
     void Start()
     {
-        
+        anim = gameObject.GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Esquerda : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            Debug.Log("Esquerda");
+            anim.Play("GolpeEsquerda");
         }
     }
 }
