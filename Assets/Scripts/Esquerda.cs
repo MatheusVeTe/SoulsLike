@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Esquerda : MonoBehaviour
 {
-    public Animation anim;
+    public AnimationClip golpeE;
+    Animation anim;
     void Start()
     {
         anim = gameObject.GetComponent<Animation>();
@@ -19,7 +20,9 @@ public class Esquerda : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            anim.Play("GolpeEsquerda");
+            anim.clip = golpeE;
+            anim.Play();
+            Debug.Log("GolpeEsquerda");
         }
     }
 }

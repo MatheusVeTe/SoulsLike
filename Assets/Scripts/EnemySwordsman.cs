@@ -12,7 +12,7 @@ public class EnemySwordsman : MonoBehaviour
 
     private void Start()
     {
-        Target = new Vector3(Random.Range(-8, 8), -4.4f, 0);
+        Target = new Vector3(Random.Range(-8, 8), -3.9f, 0);
         Action = Random.Range(1, 2);
     }
 
@@ -20,7 +20,7 @@ public class EnemySwordsman : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, Target) < 1)
         {
-            Target = new Vector3(Random.Range(-8, 8), -4.4f, 0);
+            Target = new Vector3(Random.Range(-8, 8), -3.9f, 0);
             Action = Random.Range(0, 3);
 
             if (Action == 0) { RB.AddForce(new Vector2(0, Speed), ForceMode2D.Impulse); }

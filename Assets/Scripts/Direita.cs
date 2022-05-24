@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Direita : MonoBehaviour
 {
-    public Animation anim;
+    
     void Start()
     {
-        anim = gameObject.GetComponent<Animation>();
+        
     }
 
     // Update is called once per frame
@@ -19,7 +19,13 @@ public class Direita : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            anim.Play("GolpeDireita");
+            Golpear();
         }
+    }
+
+    public void Golpear()
+    {
+        
+        Debug.Log("GolpeDireita");
     }
 }
