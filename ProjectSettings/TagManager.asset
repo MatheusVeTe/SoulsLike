@@ -10,6 +10,7 @@ TagManager:
   - Arrow
   - Direita
   - Esquerda
+  - Spell
   layers:
   - Default
   - TransparentFX

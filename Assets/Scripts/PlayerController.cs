@@ -133,5 +133,14 @@ public class PlayerController : MonoBehaviour
                 RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);
             }
         }
+        if (Col.gameObject.tag == "Spell")
+        {
+            Debug.Log("Hit");
+            Health.Instance.TakeDamage(1);
+            Animator.SetBool("IsTakingHit", true);
+            AudioSource.PlayOneShot(Hit);
+
+            if (Health.Instance.Dead == true) { Animator.SetBool("IsDead", true); }
+        }
     }
 }
