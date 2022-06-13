@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Direita.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
+    <Compile Include="Assets\Scripts\EnemySorcerer.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Esquerda.cs" />
@@ -65,7 +66,6 @@
     <Compile Include="Assets\Scripts\EnemyArcher.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Spell.cs" />
-    <Compile Include="Assets\EnemySorcerer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
