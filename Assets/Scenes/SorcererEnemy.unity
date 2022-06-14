@@ -696,6 +696,7 @@ MonoBehaviour:
   X: 0
   Y: 0
   Speed: 5
+  Pause: 0
   Rolled: 0
   SpecialUsed: 0
   SR: {fileID: 1250137892}
@@ -703,6 +704,7 @@ MonoBehaviour:
   Animator: {fileID: 1250137889}
   AudioSource: {fileID: 1250137888}
   Hit: {fileID: 8300000, guid: 2940a602bc404f942ac92bc66e0aee61, type: 3}
+  Boat: {fileID: 0}
 --- !u!82 &1250137888
 AudioSource:
   m_ObjectHideFlags: 0
@@ -943,7 +945,7 @@ GameObject:
   - component: {fileID: 1423156915}
   - component: {fileID: 1423156917}
   - component: {fileID: 1423156918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySorcerer
   m_TagString: Enemy
   m_Icon: {fileID: 0}

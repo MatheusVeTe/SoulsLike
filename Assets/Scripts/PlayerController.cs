@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float X;
     public float Y;
     public float Speed = 5;
+    public bool Pause;
     public bool Rolled;
     public bool SpecialUsed;
     
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Animator Animator;
     public AudioSource AudioSource;
     public AudioClip Hit;
+    public Transform Boat;
 
     private void Awake() 
     {
@@ -35,8 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Não Pausado
-        if (Time.timeScale == 1)
+        if (Pause == false)
         {
             //Pulo
             if (Input.GetButtonDown("Jump") && Mathf.Abs(RB.velocity.y) < 0.001f)
@@ -54,11 +56,19 @@ public class PlayerController : MonoBehaviour
                 if (X < 0) {RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);}
                 Animator.SetBool("IsRolling", true);
                 AudioSource.PlayOneShot(AudioSource.clip);
-                Health.Instance.UseStamina(1.5f);
+                Health.Instance.UseStamina(1);
             } 
-            if (Animator.GetBool("IsRolling") == true) {Physics2D.IgnoreLayerCollision(7, 6, true);}
-            if (Animator.GetBool("IsRolling") == false) {Physics2D.IgnoreLayerCollision(7, 6, false);}
-            
+            if (Animator.GetBool("IsRolling") == true)
+            {
+                Physics2D.IgnoreLayerCollision(7, 6, true);
+                Physics2D.IgnoreLayerCollision(7, 3, true);
+            }
+            if (Animator.GetBool("IsRolling") == false)
+            {
+                Physics2D.IgnoreLayerCollision(7, 6, false);
+                Physics2D.IgnoreLayerCollision(7, 3, false);
+            }
+
             if (Rolled == true)
             {
                 Animator.SetBool("IsRolling", false); 
@@ -74,16 +84,28 @@ public class PlayerController : MonoBehaviour
 
             //Usar ataque especial
             if (Input.GetButtonDown("Fire2") && Health.Instance.SpecialPoints >= 1 
-                && Animator.GetBool("SpecialRight") == false && Animator.GetBool("SpecialLeft") == false)
+                && Animator.GetBool("SpecialRight") == false && Animator.GetBool("SpecialLeft") == false
+                && Animator.GetBool("SpecialUp") == false && Animator.GetBool("SpecialDown") == false)
             {
-                if (SR.flipX == false)
+                if (SR.flipX == false && Y == 0)
                 {
                     Animator.SetBool("SpecialRight", true);
                     Health.Instance.UseSpecial(1);
                 }
-                if (SR.flipX == true)
+                if (SR.flipX == true && Y == 0)
                 {
                     Animator.SetBool("SpecialLeft", true);
+                    Health.Instance.UseSpecial(1);
+                }
+                if (Y > 0)
+                {
+                    RB.AddForce(new Vector2(0, Speed * 2), ForceMode2D.Impulse);
+                    Animator.SetBool("SpecialUp", true);
+                    Health.Instance.UseSpecial(1);
+                }
+                if (Y < 0)
+                {
+                    Animator.SetBool("SpecialDown", true);
                     Health.Instance.UseSpecial(1);
                 }
             }
@@ -91,19 +113,25 @@ public class PlayerController : MonoBehaviour
             {
                 Animator.SetBool("SpecialRight", false); 
                 Animator.SetBool("SpecialLeft", false);
+                Animator.SetBool("SpecialUp", false);
+                Animator.SetBool("SpecialDown", false);
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D Col) 
     {
-        if (Col.gameObject.tag == "Enemy")
+        if (Col.gameObject.tag == "Enemy" || Col.gameObject.tag == "Arrow" || Col.gameObject.tag == "Spell")
         {
             Health.Instance.TakeDamage(1);
             Animator.SetBool("IsTakingHit", true);
             AudioSource.PlayOneShot(Hit);
 
-            if (Health.Instance.Dead == true) {Animator.SetBool("IsDead", true);}
+            if (Health.Instance.Dead == true) 
+            {
+                Animator.SetBool("IsDead", true); 
+                Pause = true;
+            }
 
             if (transform.position.x >= Col.gameObject.transform.position.x)
             {
@@ -114,33 +142,18 @@ public class PlayerController : MonoBehaviour
                 RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);
             }
         }
+    }
 
-        if (Col.gameObject.tag == "Arrow")
+    private void OnTriggerEnter2D(Collider2D Col) 
+    {
+        if (Col.gameObject.name == "River")
         {
-            Debug.Log("Hit");
-            Health.Instance.TakeDamage(1);
-            Animator.SetBool("IsTakingHit", true);
+            transform.position = Boat.position;
             AudioSource.PlayOneShot(Hit);
-
-            if (Health.Instance.Dead == true) { Animator.SetBool("IsDead", true); }
-
-            if (transform.position.x >= Col.gameObject.transform.position.x)
-            {
-                RB.AddForce(new Vector2(Speed, 0), ForceMode2D.Impulse);
-            }
-            if (transform.position.x < Col.gameObject.transform.position.x)
-            {
-                RB.AddForce(new Vector2(-Speed, 0), ForceMode2D.Impulse);
-            }
         }
-        if (Col.gameObject.tag == "Spell")
+        if (Col.gameObject.name == "Boss")
         {
-            Debug.Log("Hit");
-            Health.Instance.TakeDamage(1);
-            Animator.SetBool("IsTakingHit", true);
-            AudioSource.PlayOneShot(Hit);
-
-            if (Health.Instance.Dead == true) { Animator.SetBool("IsDead", true); }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
